@@ -13,7 +13,7 @@ En este repositorio encontrarás nuestros WriteUp correspondientes al HackLab202
 | Casino de Germán     |    ✅    |     2026-10-10 16:14:28      |     2h 14m     |     -     |
 | FabiFiber            |    ✅    |     2026-10-10 18:27:44      |     1h 28m     |     -     |
 | Revisor de videos    |    ✅    |     2026-10-10 18:51:28      |     4h 51m     |     -     |
-| Veltra Bank          |    ✅    |     2026-10-10 20:32:21      |     1h 32m     |     -     |
+| Veltra Bank          |    ✅    |     2026-10-10 20:32:21      |     1h 32m     |     [MD](Veltra%20Bank.md) \| [HTML](exports/VeltraBank/Veltra%20Bank.html) \| [PDF](exports/VeltraBank/Veltra%20Bank.pdf)    |
 | Encuentro Obligado   |    ✅    |     2026-10-10 21:57:47      |     0h 58m     |     -     |
 | Capturando al Ladrón |    ✅    |     2026-10-10 22:32:04      |     1h 32m     |     -     |
 | Vulpasar             |    ✅    |     2026-10-11 01:10:02      |    11h 10m     |     -     |
