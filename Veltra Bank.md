@@ -206,7 +206,7 @@ Y, si abrimos con el navegador el archivo `login.html`, vemos que es una copia e
 
 #### Hosteando un webserver local
 
-Una vez obtenida la copia de la página, es necesario hostearla en un webserver para que pueda ser accedida a traves de la red. Para eso, inicialmente haremos uso del modulo http de python. Ejecutamos el siguiente comando en el directorio donde tenemos la página clonada:
+Una vez obtenida la copia de la página, es necesario hostearla en un webserver para que pueda ser accedida a traves de la red. Para eso, inicialmente haremos uso del módulo http de python. Ejecutamos el siguiente comando en el directorio donde tenemos la página clonada:
 
 ```sh
 python -m http.server 3000
@@ -220,7 +220,7 @@ Y, si ahora ingresamos en el navegador a `http:127.0.0.1:3000/login.html`, serem
 
 #### Exponiendo la página falsa para nuestra víctima
 
-Genial, ya tenemos una copia exacta de la página para engañar a Gastón, ahora sólo nos falta hacer que entre. Para ello, hay varias opciones; durante la competencia decidimos resolverlo haciendo uso de un reverse proxy que ya teníamos configurado para este tipo de escenarios, pero en pos de hacerlo accesible para todos, decidimos redactar este writeup utilizando una herramienta muy popular que nos permite exponer servicios web sin la complegidad asociada con configurar un reverse proxy. Dicha herramienta es [zgrok](https://www.zgrok.io/). 
+Genial, ya tenemos una copia exacta de la página para engañar a Gastón, ahora sólo nos falta hacer que entre. Para ello, hay varias opciones; durante la competencia decidimos resolverlo haciendo uso de un reverse proxy que ya teníamos configurado para este tipo de escenarios, pero en pos de hacerlo accesible para todos, decidimos redactar este writeup utilizando una herramienta muy popular que nos permite exponer servicios web sin la complejidad asociada con configurar un reverse proxy. Dicha herramienta es [zgrok](https://www.zgrok.io/). 
 
 > Nota: Debido a un cambio en las políticas de `ngrok` ya no es de utilidad para este tipo de ataques. Por ello debimos cambiar a `zgrok`
 
@@ -236,19 +236,19 @@ Una vez hecho esto, el sistema nos indica el comando que debemos utilizar para e
 Ejecutamos el comando provisto en una nueva terminal, obtenemos lo siguiente:
 ![](images/reverseTunnelZGrokFuncionando.png)
 
-Al ejecutarlo, nos indica que el tunel se creó correctamente y la URL que debemos utilizar para acceder al mimso. Esta es la URL que deberemos enviarle a Gastón. Al ingresar, confirmamos que efectivamente se muestra nuestra página
+Al ejecutarlo, nos indica que el túnel se creó correctamente y la URL que debemos utilizar para acceder al mismo. Esta es la URL que deberemos enviarle a Gastón. Al ingresar, confirmamos que efectivamente se muestra nuestra página
 ![](images/VB%20Hosteado%20Zgrok.png)
 
 Genial! Ahora compartamos este link con Gastón para robarnos sus credenciales!
 
 ![](images/InicioGaston1.png)
-Completamos los datos en el sistema y... nada... qué falló? Leyendo los logs del tunel vemos lo siguiente
+Completamos los datos en el sistema y... nada... qué falló? Leyendo los logs del túnel vemos lo siguiente
 ![](images/LogsIngresoFallidoGaston.png)
-Vemos que gastón sí intentó entrar, pero el sistema devolvió un 501, ya que la request que está haciendo es un `POST` y nuestro `python -m http.server 3000` sólo espera `GET`s. Veamos como lo solucionamos!
+Vemos que Gastón sí intentó entrar, pero el sistema devolvió un 501, ya que la request que está haciendo es un `POST` y nuestro `python -m http.server 3000` sólo espera `GET`s. Veamos cómo lo solucionamos!
 
 #### Webserver local v2
 
-Para solucionar los problemas de las URL y métodos, podemos crear un simple script de python utilizando el mimso módulo `HTTPServer` pero de forma que emule tanto las rutas como los métodos utilizados por la página real. 
+Para solucionar los problemas de las URL y métodos, podemos crear un simple script de python utilizando el mismo módulo `HTTPServer` pero de forma que emule tanto las rutas como los métodos utilizados por la página real. 
 ```python
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -319,7 +319,7 @@ Paramos el webserver que habíamos creado antes con `python -m http.server 3000`
 Una vez hecho esto, volvemos a hacer que Gastón entre a nuestra página, y ahora sí, obtuvimos sus credenciales!
 ![](images/intentoLoginGaston.png)
 ![](images/credencialesGastonLogsServer.png)
-La solicitud `/login?txtLogin=gaston.diaz&txtPassword=Gaston%245.%21%401990` contiene las credenciales de Gastón luego de un URLEncode. Para obtenerlas en texto plano, utilizamos un decodificador como el de [urldecode.org](https://www.urldecoder.org/):
+La solicitud `/login?txtLogin=gaston.diaz&txtPassword=Gaston%245.%21%401990` contiene las credenciales de Gastón luego de un `URLEncode`. Para obtenerlas en texto plano, utilizamos un decodificador como el de [urldecode.org](https://www.urldecoder.org/):
 ```sh
 txtLogin=gaston.diaz
 txtPassword=Gaston$5.!@1990
